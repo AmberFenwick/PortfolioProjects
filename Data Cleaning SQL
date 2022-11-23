@@ -1,4 +1,13 @@
-----------Populate Property Address data--------- before breaking out and deleting column
+/* 
+
+Cleaning Data in SQL Qureries from raw Nashville Housing data
+
+Using JOINS, SUBSTRINGS, CHARINDEX, PARSENAME, REPLACE,
+CASE STATEMENTS, ROWNUMBERS, CTEs, WINDOWS PARTITION BY, and DELETE usused columns
+
+*/
+
+----------Populate Property Address data---------
 
 SELECT *
 FROM PortfolioProject.dbo.Nashville_Housing
@@ -20,7 +29,7 @@ ON A.ParcelID = B.ParcelID
 AND A.UniqueID <> B.UniqueID
 WHERE A.PropertyAddress is NULL
 
---Breaking Address into Individual Columns (Address, City, State)--------- substring charindex parsename and replace
+--Breaking Address into Individual Columns (Address, City, State)---------
 
 SELECT PropertyAddress
 FROM PortfolioProject.dbo.Nashville_Housing
@@ -97,7 +106,7 @@ END
 
 
 
--------Remove Duplicates------------- using rownumber, CTE, and windows partition by
+-------Remove Duplicates-------------
 WITH RowNumCTE AS(
 SELECT *, 
 ROW_NUMBER() OVER (
@@ -118,7 +127,7 @@ WHERE Row_Num > 1
 ORDER By PropertyAddress
 
 
---------DELETE Unused Columns---------- we no longer want to see/ dirty data of no use
+--------DELETE Unused Columns----------
 
 SELECT*
 FROM PortfolioProject.dbo.[Nashville_Housing ]
